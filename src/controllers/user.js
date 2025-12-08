@@ -1,27 +1,61 @@
-import fs from "node:fs/promises";
+import {
+  createUserService,
+  updateUserService,
+  getUsersService,
+  getUserByIdService,
+  deleteUserService,
+  getUserAccountsService,
+  getUserTransactionsService,
+} from "../services/user.js";
 
-const getUsers = async () => {
-  const userRawData = await fs.readFile("../dara", "utf-8");
+export const createUser = async (req, res) => {
+  const { username, email, password, firstname, lastname } = req.body;
 
-  const users = JSON.parse(userRawData);
+  const user = await createUserService(
+    username,
+    email,
+    password,
+    firstname,
+    lastname
+  );
 
-  return users;
+  res.json(user);
 };
 
-export const login = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  console.log(email, "aaa");
-  console.log(password, "asdasd");
+export const updateUser = async (req, res) => {
+  const { id, username, email, password, firstname, lastname } = req.body;
 
-  const users = await getUsers();
+  const user = await updateUserService(
+    id,
+    username,
+    email,
+    password,
+    firstname,
+    lastname
+  );
 
-  const user = users.find((value) => {
-    return value.username === username && value.password === password;
-  });
-  if (!user) {
-    res.send("username eswel password buruu bn!");
-  } else {
-    res.send("Success");
-  }
+  res.json(user);
+};
+
+export const getUsers = async (req, res) => {
+  const users = await getUsersService();
+  res.json(users);
+};
+
+export const getUserById = async (req, res) => {
+  const { id } = req.query;
+  const user = await getUserByIdService(id);
+  res.json(user);
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.query;
+  const user = await deleteUserService(id);
+  res.json(user);
+};
+
+export const getUserAccounts = async (req, res) => {
+  const { id } = req.query;
+  const accounts = await getUserAccountsService(id);
+  res.json(accounts);
 };

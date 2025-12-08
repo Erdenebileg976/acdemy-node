@@ -1,10 +1,30 @@
-import express from "express";
-import { checkBalanceController } from "../controllers/bank.js";
+import { Router } from "express";
+import {
+  createTransaction,
+  getTransactions,
+  getTransactionsByAccountNumber,
+  createAccount,
+  updateAccount,
+  deleteAccount,
+  getAllAccounts,
+  getAccountByNumber,
+} from "../controllers/bank.js";
 
-export const bankRouter = new express.Router();
+export const bankRouters = new Router();
 
-bankRouter.get("/check-balance/:userId", checkBalanceController);
+// Account-related
+bankRouters.get("/accounts", getAllAccounts);
+bankRouters.get("/accounts/:accountNumber", getAccountByNumber);
+bankRouters.post("/accounts", createAccount);
+bankRouters.put("/accounts/:accountNumber", updateAccount);
+bankRouters.delete("/accounts/:accountNumber", deleteAccount);
 
-bankRouter.get("/get-history", (req, res) => {
-  res.send(5000);
-});
+// Transaction-related
+bankRouters.get("/transactions", getTransactions);
+bankRouters.get(
+  "/accounts/:accountNumber/transactions",
+  getTransactionsByAccountNumber
+);
+bankRouters.post("/transactions", createTransaction);
+// bankRouters.put("/transactions/:transactionId", updateTransaction);
+// bankRouters.delete("/transactions/:transactionId", deleteTransaction);
