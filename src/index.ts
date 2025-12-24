@@ -1,13 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import { commentRouter } from "./comments/routes.ts";
+import { commentRouter } from "./comments/routers/routes.ts";
+import { movieRouter } from "./movies/routers/routes.ts";
 
 // Express app
 const app = express();
 app.use(bodyParser.json());
 
 app.use("/comments", commentRouter);
+
+app.use("/movie", movieRouter);
 
 // MongoDB connection
 mongoose

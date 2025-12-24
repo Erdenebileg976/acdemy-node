@@ -1,5 +1,6 @@
-import { Router, Request, Response } from "express";
-import { Comments } from "./models";
+import { Router } from "express";
+import type { Request, Response } from "express";
+import { Comments } from "../models/models";
 
 export const commentRouter = Router();
 
