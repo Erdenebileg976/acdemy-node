@@ -1,4 +1,24 @@
-import { Document, Schema, model } from "mongoose";
+import mongoose, { Document, Schema, model } from "mongoose";
+
+interface IImdb {
+  rating: number;
+  votes: number;
+}
+
+interface IMovie extends Document {
+  title: string;
+  imdb: IImdb;
+}
+
+const imdbSchema = new Schema<IImdb>({
+  rating: { type: Number, required: true },
+  votes: { type: Number, required: true },
+});
+
+const movieSchema = new Schema<IMovie>({
+  title: { type: String, required: true },
+  imdb: { type: imdbSchema, required: true },
+});
 
 interface IRating {
   rating: number;
@@ -26,6 +46,11 @@ export interface IMoviesDocument extends Document {
   relased: Date;
   languages: string[];
   directors: string[];
+  imdb: {
+    rating: number;
+    votes: number;
+    id: number;
+  };
   awards: {
     wins: number;
     nominations: number;
@@ -64,6 +89,11 @@ const MovieSchema: Schema<IMoviesDocument> = new Schema({
   relased: { type: Date, required: true, default: new Date() },
   languages: { type: [String], required: true },
   directors: { type: [String], required: true },
+  imdb: {
+    rating: { type: Number },
+    votes: { type: Number },
+    id: { type: Number },
+  },
   awards: {
     wins: { type: Number },
     nominations: { type: Number },
