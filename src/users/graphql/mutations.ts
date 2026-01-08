@@ -1,7 +1,5 @@
-import { Users } from "../models/users.ts";
-import { Movies } from "../models/movies.ts";
+import { Users } from "../models/models.ts";
 import { type IUser } from "../types/user.ts";
-import { type IMovie } from "../types/movies.ts";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -50,39 +48,5 @@ export const userMutations = {
 
     await newUser.save();
     return newUser;
-  },
-};
-
-export const movieMutations = {
-  moviesAdd: async (_root: any, { input }: { input: IMovie }) => {
-    const {
-      title,
-      poster,
-      year,
-      runtime,
-      cast,
-      fullpolt,
-      languages,
-      directors,
-      relased,
-      plot,
-      genre,
-    } = input;
-
-    const newMovie = await Movies.insertOne({
-      title,
-      poster,
-      year,
-      runtime,
-      cast,
-      fullpolt,
-      languages,
-      directors,
-      relased,
-      plot,
-      genre,
-    });
-
-    return newMovie;
   },
 };
