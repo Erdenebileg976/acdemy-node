@@ -5,10 +5,6 @@ export const userTypeDefs = `
     email: String!
   }
 
-  type Query {
-    users: [User]!
-    user(id: ID!): User
-  }
 
   input LoginInput {
     email: String
@@ -20,9 +16,37 @@ export const userTypeDefs = `
     email: String
     password: String
   }
+   
+`;
+
+export const movietypeDefs = `
+  type Award {
+     wins: Int
+     nominations: Int
+     text: String
+  }
+
+  type Movie {
+    _id: ID
+    title: String
+    author: String
+    awards: [Award]
+   
+  }
+
+  input MovieInput {
+    title: String
+    author: String
+  }
+
+
 `;
 
 export const userMutationTypeDefs = `
-  login(input: LoginInput): User
+  login(input: LoginInput): String
   register(input: registerInput): User
 `;
+
+// export const movieMutationTypeDefs = `
+//   moviesAdd(input: MovieInput): String
+// `;
