@@ -1,4 +1,4 @@
-export const movieTypesDefs = `
+export const movietypeDefs = `
   type Award {
      wins: Int
      nominations: Int
